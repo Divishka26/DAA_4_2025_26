@@ -1,0 +1,29 @@
+Painter's Partition Problem
+
+class Solution {
+  public:
+    int minTime(vector<int>& arr, int k) {
+        long long left = *max_element(arr.begin(), arr.end());
+        long long right = 0;
+        for (int x : arr)
+            right += x;
+        while (left < right) {
+            long long mid = left + (right - left) / 2;
+            long long painters = 1;
+            long long currentSum = 0;
+            for (int length : arr) {
+                if (currentSum + length <= mid) {
+                    currentSum += length;
+                } else {
+                    painters++;
+                    currentSum = length;
+                }
+            }
+            if (painters > k)
+                left = mid + 1;  
+            else
+                right = mid;    
+        }
+        return left;
+    }
+};
