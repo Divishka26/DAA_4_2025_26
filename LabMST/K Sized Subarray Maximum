@@ -1,0 +1,23 @@
+#include <vector>
+#include <algorithm>
+using namespace std;
+class Solution {
+public:
+    vector<int> maxOfSubarrays(vector<int>& arr, int k) {
+        int n = arr.size();
+        vector<int> ans;
+        int lrg;
+        for (int i = 0; i <= n - k; i++) {
+            if (i == 0 || arr[i - 1] == lrg) {
+                lrg = arr[i];
+                for (int j = i + 1; j < i + k; j++)
+                    lrg = max(lrg, arr[j]);
+            } 
+            else {
+                lrg = max(lrg, arr[i + k - 1]);
+            }
+            ans.push_back(lrg);
+        }
+        return ans;
+    }
+};
